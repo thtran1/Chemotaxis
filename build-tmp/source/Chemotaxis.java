@@ -1,18 +1,34 @@
+import processing.core.*; 
+import processing.data.*; 
+import processing.event.*; 
+import processing.opengl.*; 
+
+import java.util.HashMap; 
+import java.util.ArrayList; 
+import java.io.File; 
+import java.io.BufferedReader; 
+import java.io.PrintWriter; 
+import java.io.InputStream; 
+import java.io.OutputStream; 
+import java.io.IOException; 
+
+public class Chemotaxis extends PApplet {
+
  Bacteria [] colony;
  Food a;
  int mX = 250;
  int mY = 250;
- void setup()   
+ public void setup()   
  {     
  	size(500,500);
  	colony = new Bacteria[500];
  	for (int i = 0; i < colony.length; i++)
  	{
- 		colony[i] = new Bacteria(250,250;
+ 		colony[i] = new Bacteria((int)Math.random()*501,(int)Math.random()*501);
  	}
  	
  }   
- void draw()   
+ public void draw()   
  {    
  	background(0);
  	for (int i = 0; i < colony.length; i++)
@@ -35,7 +51,7 @@
  		gCol = (int)(Math.random()*257);
  		bCol = (int)(Math.random()*257);
  	}
- 	void move()
+ 	public void move()
  	{
  		if (xPos < mX)
  		{
@@ -64,7 +80,7 @@
  			yPos = (int)(Math.random()*501)+500*numbers[(int)(Math.random()*2)];
  		}
  	}
- 	void show()
+ 	public void show()
  	{
  		noStroke();
  		fill(rCol,gCol,bCol);
@@ -81,7 +97,7 @@
  		xPos = x;
  		sizeF = 5;
  	}
- 	void show()
+ 	public void show()
  	{
  		stroke(255);
  		text("(" + (xPos+sizeF/2)/10 + "," + (yPos+sizeF/2)/10 + ")",xPos+sizeF/2, yPos-sizeF/2);
@@ -90,8 +106,17 @@
  		rect(xPos+sizeF/2,yPos+sizeF/2,sizeF,sizeF);
  	}
  }    
- void mousePressed()
+ public void mousePressed()
  {
  	mX = mouseX;
  	mY = mouseY;
  }
+  static public void main(String[] passedArgs) {
+    String[] appletArgs = new String[] { "Chemotaxis" };
+    if (passedArgs != null) {
+      PApplet.main(concat(appletArgs, passedArgs));
+    } else {
+      PApplet.main(appletArgs);
+    }
+  }
+}
