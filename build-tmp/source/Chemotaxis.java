@@ -24,9 +24,8 @@ public class Chemotaxis extends PApplet {
  	colony = new Bacteria[500];
  	for (int i = 0; i < colony.length; i++)
  	{
- 		colony[i] = new Bacteria((int)Math.random()*501,(int)Math.random()*501);
+ 		colony[i] = new Bacteria(250,250);
  	}
- 	
  }   
  public void draw()   
  {    
@@ -99,7 +98,7 @@ public class Chemotaxis extends PApplet {
  	}
  	public void show()
  	{
- 		stroke(255);
+ 		stroke(255,255,255);
  		text("(" + (xPos+sizeF/2)/10 + "," + (yPos+sizeF/2)/10 + ")",xPos+sizeF/2, yPos-sizeF/2);
  		noStroke();
  		fill(255,255,0);

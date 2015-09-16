@@ -82,7 +82,7 @@
  	}
  	void show()
  	{
- 		stroke(255);
+ 		stroke(255,255,255);
  		text("(" + (xPos+sizeF/2)/10 + "," + (yPos+sizeF/2)/10 + ")",xPos+sizeF/2, yPos-sizeF/2);
  		noStroke();
  		fill(255,255,0);
