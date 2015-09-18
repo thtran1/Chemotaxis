@@ -16,11 +16,14 @@ public class Chemotaxis extends PApplet {
 
  Bacteria [] colony;
  Food a;
- int sizeS = 1000; //size of canvas, use to modify: food initial position, bacteria initial position, bacteria spawning zone, black rectangle size[makes trails]
+ int sizeS = 600; //size of canvas, use to modify: food initial position, bacteria initial position, bacteria spawning zone, black rectangle size[makes trails]
  int mX = sizeS/2;
  int mY = sizeS/2;
+ int bScore = 0;
+ int bScore1 = 0;
  public void setup()   
- {     
+ {  
+ 	frameRate(60);   
  	size(sizeS,sizeS);
  	colony = new Bacteria[1000];
  	for (int i = 0; i < colony.length; i++)
@@ -30,6 +33,7 @@ public class Chemotaxis extends PApplet {
  }   
  public void draw()   
  {    
+ 	bScore = 0;
  	fill(0,80);
  	rect(-100,-100,sizeS+100,sizeS+100);
  	for (int i = 0; i < colony.length; i++)
@@ -39,6 +43,10 @@ public class Chemotaxis extends PApplet {
  	}
  	a = new Food(mX,mY);
  	a.show();
+ 	fill(255,255,0);
+ 	text("# of Bacteria on Screen: " + bScore, 25,25);
+ 	bScore1 = bScore1/360;
+ 	text(bScore1, sizeS-50, 25);
  }  
  class Bacteria    
  {     
@@ -57,22 +65,22 @@ public class Chemotaxis extends PApplet {
  		//Go to food
  		if (xPos < mX)
  		{
- 			xPos = xPos + ((int)(Math.random()*2)-0); //0,1
+ 			xPos = xPos + ((int)((Math.random()*2)-0.5f)); //0,1
  			yPos = yPos + ((int)(Math.random()*3)-1); //-1,0,1
  		}
  		else if (xPos > mX)
  		{
- 			xPos = xPos + ((int)(Math.random()*2)-1); //-1,0
+ 			xPos = xPos + ((int)((Math.random()*2)-1.5f)); //-1,0
  			yPos = yPos + ((int)(Math.random()*3)-1); //-1,0,1
  		}
  		if (yPos < mY)
  		{
- 			yPos = yPos + ((int)(Math.random()*2)-0); //0,1
+ 			yPos = yPos + ((int)((Math.random()*2)-0.5f)); //0,1
  			xPos = xPos + ((int)(Math.random()*3)-1); //-1,0,1
  		}
  		else if (yPos > mY)
  		{
- 			yPos = yPos + ((int)(Math.random()*2)-1); //-1,0
+ 			yPos = yPos + ((int)((Math.random()*2)-1.5f)); //-1,0
  			xPos = xPos + ((int)(Math.random()*3)-1); //-1,0,1
  		}
  		if (xPos == mX && yPos == mY)
@@ -80,8 +88,12 @@ public class Chemotaxis extends PApplet {
  			int [] numbers = {-1,1};
  			xPos = (int)(Math.random()*sizeS)+sizeS*numbers[(int)(Math.random()*2)];
  			yPos = (int)(Math.random()*sizeS)+sizeS*numbers[(int)(Math.random()*2)];
+ 			bScore1 += 1;
  		}
-
+ 		if (xPos > 0 && xPos < sizeS && yPos > 0 && yPos < sizeS) //add one to "# of bac on screen"
+ 		{
+ 			bScore += 1;
+ 		}
  		//Move away from other bacteria ***NOT WORKING***
  		/*for (int i = 1; i <= 3; i++)
  		{
@@ -138,14 +150,14 @@ public class Chemotaxis extends PApplet {
  	}
  	public void show()
  	{
- 		stroke(255,255,255);
+ 		fill(255);
  		text("(" + (int)(xPos+sizeF/2)/10 + "," + (int)(yPos+sizeF/2)/10 + ")",xPos+sizeF/2, yPos-sizeF/2);
  		noStroke();
  		fill(255,255,0);
  		rect(xPos+sizeF/2,yPos+sizeF/2,sizeF,sizeF);
  	}
  }    
- public void mouseMoved()
+ public void mouseDragged()
  {
  	mX = mouseX;
  	mY = mouseY;
