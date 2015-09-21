@@ -4,7 +4,7 @@
  int mX = sizeS/2;
  int mY = sizeS/2;
  int bScore = 0;
- int bScore1 = 0;
+ float bScore1 = 0;
  void setup()   
  {  
  	frameRate(60);   
@@ -18,6 +18,7 @@
  void draw()   
  {    
  	bScore = 0;
+ 	bScore1 = bScore1-0.1666;
  	fill(0,80);
  	rect(-100,-100,sizeS+100,sizeS+100);
  	for (int i = 0; i < colony.length; i++)
@@ -29,8 +30,7 @@
  	a.show();
  	fill(255,255,0);
  	text("# of Bacteria on Screen: " + bScore, 25,25);
- 	bScore1 = bScore1/60;
- 	text(bScore1, sizeS-50, 25);
+ 	text((int)bScore1, sizeS-50, 25);
  }  
  class Bacteria    
  {     
@@ -77,6 +77,10 @@
  		if (xPos > 0 && xPos < sizeS && yPos > 0 && yPos < sizeS) //add one to "# of bac on screen"
  		{
  			bScore += 1;
+ 		}
+ 		if (xPos < 0 || xPos > sizeS || yPos < 0 || yPos > sizeS)
+ 		{
+ 			//bScore1 += 1;
  		}
  		//Move away from other bacteria ***NOT WORKING***
  		/*for (int i = 1; i <= 3; i++)
