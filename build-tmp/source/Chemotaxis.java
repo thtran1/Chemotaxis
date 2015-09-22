@@ -46,7 +46,7 @@ public class Chemotaxis extends PApplet {
  	a.show();
  	fill(255,255,0);
  	text("# of Bacteria on Screen: " + bScore, 25,25);
- 	text(bScore1, sizeS-50, 25);
+ 	//text((int)bScore1, sizeS-50, 25);
  }  
  class Bacteria    
  {     
